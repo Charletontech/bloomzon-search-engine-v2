@@ -13,32 +13,35 @@ const viewController = (req, res) => {
   res.sendFile(page);
 };
 
+
 const imageSearchController = async (req, res) => {
   try {
     const imagePath = await fileUploadService(req);
     if (imagePath) {
       var searchResult = await imageSearchService(res, imagePath);
-      if (searchResult.startsWith("[") && searchResult.endsWith("]")) {
-        var formatted = searchResult.slice(1, searchResult.length - 2);
-        const finalResult = await getFilteredProductsFromDB(formatted);
-        console.log(finalResult);
-        res.status(200).json({ data: finalResult });
-      } else if (searchResult === null) {
-        res.status(501).json({
-          data: "error ocurred when detecting image / when getting fetching all products from database.",
-        });
-        return;
-      } else {
-        console.log("No matching product data found.");
-        res.status(201).json({ data: "No matching product data found" });
-        return;
-      }
+      console.log(searchResult);
+      handleSearchResult(searchResult);
     } else {
       throw new Error("Image File upload error");
     }
   } catch (error) {
-    res.status(501).json({ data: error });
+    res.status(501).json({ data: error.message });
     console.log(error.message);
+  }
+
+  async function handleSearchResult(searchResult) {
+    if (
+      searchResult !== "no match"
+    ) {
+      var formatted = searchResult.slice(1, searchResult.length - 2);
+      const finalResult = await getFilteredProductsFromDB(formatted);
+
+      // Respond to user
+      res.status(200).json({ data: finalResult });
+    } else {
+      console.log("No matching product data  in product database.");
+      res.status(201).json({ data: "no matching product" });
+    }
   }
 };
 
