@@ -68,7 +68,7 @@ async function textPrompt(modelResponse) {
   const { GoogleGenerativeAI } = require("@google/generative-ai");
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_AI_KEY);
 
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
 
   const prompt = `
     Instruction: You are provided with a json data. The json data represents a list of products in an e-commerce website database.
