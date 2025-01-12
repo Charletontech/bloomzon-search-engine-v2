@@ -40,7 +40,7 @@ const imageSearchController = async (req, res) => {
       res.status(200).json({ data: finalResult });
     } else {
       console.log("No matching product data  in product database.");
-      res.status(201).json({ data: "no matching product" });
+      res.status(404).json({ data: "no matching product" });
     }
   }
 };
@@ -57,7 +57,7 @@ const imageSearchControllerV2 = async (req, res) => {
 
     if (arrayOfProductId.startsWith("null")) {
       console.log("No matching product data  in product database.");
-      res.status(201).json({ data: "no matching product" });
+      res.status(404).json({ data: "no matching product" });
       return;
     } else {
       var formatted = arrayOfProductId.slice(1, arrayOfProductId.length - 2);
@@ -79,7 +79,7 @@ const barcodeSearchController = async (req, res) => {
       let products = await barcodeSearchService(barcode);
       if (products === null) {
         console.log("product not found");
-        res.status(201).json({
+        res.status(404).json({
           data: "No matching product with the specified barcode exists",
         });
       } else {
@@ -104,7 +104,7 @@ const barcodeSearchWithImageController = async (req, res) => {
           const products = await getProductWithBarcode(barcode);
           if (products === null) {
             console.log("product not found");
-            res.status(201).json({
+            res.status(404).json({
               data: "No matching product with the specified barcode exists",
             });
           } else {
@@ -138,7 +138,7 @@ const voiceSearchController = async (req, res) => {
 
       if (arrayOfProductId.startsWith("null")) {
         console.log("No matching product data  in product database.");
-        res.status(201).json({ data: "no matching product" });
+        res.status(404).json({ data: "no matching product" });
         return;
       } else {
         var formatted = arrayOfProductId.slice(1, arrayOfProductId.length - 2);
