@@ -17,7 +17,7 @@ const audioTextPrompt = (filePath) => {
 
       // Initialize a Gemini model appropriate for your use case.
       const model = genAI.getGenerativeModel({
-        model: "gemini-1.5-flash-8b",
+        model: "gemini-2.0-flash-exp",
       });
 
       // Generate content using a prompt and the metadata of the uploaded file.
@@ -30,10 +30,10 @@ const audioTextPrompt = (filePath) => {
         },
         {
           text: `
-          Instruction: You are provided with an audio and a json data. The audio contains a voice recording about a product to be searched for from an e-commerce platform. 
+          Instruction: You are provided with an audio (the audio file that came attached with this particular request. Please disregard the audio file that came with previous requests) and a json data. The audio contains a voice recording about a product to be searched for from an e-commerce platform. 
           The json data represents a list of products in an e-commerce website database. 
           search through the json data and filter it and return an array containing only the id of products that match as much as possible the description in the audio provided. 
-          if none matches please response with "null" only. Do not add any extra sentences in any of your response.
+          if none matches please response with "null" only. Do not include any unrelated products. Do not add any extra sentences in any of your response.
           Your response should look like this "[12, 8, 234, ...]"
           JSON data: ${allProducts}
           `,
