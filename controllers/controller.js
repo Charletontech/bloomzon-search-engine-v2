@@ -129,6 +129,19 @@ const voiceSearchController = async (req, res) => {
   }
 };
 
+const transcribeController = async (req, res) => {
+  try {
+    console.log("first");
+    var transcribedText = await audioTranscriptionService(req);
+    console.log(transcribedText);
+    // res.status(200).json({ data: transcribedText });
+  } catch (error) {
+    res.status(501).json({
+      data: error.message,
+    });
+  }
+};
+
 // const voiceSearchController = async (req, res) => {
 //   const filePath = await fileUploadService(req);
 //   if (filePath) {
@@ -176,4 +189,6 @@ module.exports = {
   barcodeSearchController,
   voiceSearchController,
   viewController,
+    transcribeController,
+
 };
