@@ -2,9 +2,9 @@ const fs = require("fs");
 const path = require("path");
 const ffmpeg = require("fluent-ffmpeg");
 const deleteFile = require("../utils/deleteFile.utils");
-ffmpeg.setFfmpegPath(
-  "C:/My custom program files/ffmpeg-7.1-essentials_build/ffmpeg-7.1-essentials_build/bin/ffmpeg.exe"
-);
+//ffmpeg.setFfmpegPath(
+ // "C:/My custom program files/ffmpeg-7.1-essentials_build/ffmpeg-7.1-essentials_build/bin/ffmpeg.exe"
+//);
 
 // Ensure "output_files" directory exists
 const outputDir = path.join(__dirname, "output_files");
